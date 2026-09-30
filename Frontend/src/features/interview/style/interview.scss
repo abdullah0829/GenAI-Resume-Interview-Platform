@@ -1,0 +1,880 @@
+@use "sass:color";
+
+// ─────────────────────────────────────────────────────────────────────────────
+// PREMIUM GLACIER THEME
+// ─────────────────────────────────────────────────────────────────────────────
+
+$dark: #1B262C;
+$ocean: #0F4C75;
+$blue: #3282B8;
+$ice: #BBE1FA;
+
+$text: #f2f9ff;
+$text-soft: #c5dfef;
+$text-muted: #7fa4bb;
+
+$glass: rgba(27, 38, 44, 0.72);
+$glass-blue: rgba(15, 76, 117, 0.22);
+
+$border: rgba(187, 225, 250, 0.15);
+$border-hover: rgba(187, 225, 250, 0.3);
+
+$font-stack: system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Theme aliases
+// ─────────────────────────────────────────────────────────────────────────────
+
+$bg-page: $dark;
+$bg-card: $glass;
+$bg-panel: $glass-blue;
+$bg-input: rgba(15, 76, 117, 0.16);
+
+$border-color: $border;
+$text-primary: $text;
+$accent: $blue;
+
+// Glacier severity palette
+$severity-high: $ice;
+$severity-medium: $blue;
+$severity-low: $ocean;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Global
+// ─────────────────────────────────────────────────────────────────────────────
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Page Shell
+// ─────────────────────────────────────────────────────────────────────────────
+
+.interview-page {
+    width: 100%;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top left,
+            rgba($blue, 0.12),
+            transparent 35%),
+        radial-gradient(circle at bottom right,
+            rgba($ocean, 0.16),
+            transparent 40%),
+        $bg-page;
+    color: $text-primary;
+    font-family: $font-stack;
+    display: flex;
+    align-items: stretch;
+    padding: 1.5rem;
+    box-sizing: border-box;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 3-Column Layout
+// ─────────────────────────────────────────────────────────────────────────────
+
+.interview-layout {
+    display: flex;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+
+    background:
+        linear-gradient(135deg,
+            rgba($blue, 0.08),
+            rgba($dark, 0.15)),
+        $bg-card;
+
+    border: 1px solid $border;
+    border-radius: 1rem;
+    justify-content: space-between;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba($ice, 0.04);
+
+    overflow: hidden;
+}
+
+.interview-divider {
+    width: 1px;
+    background:
+        linear-gradient(to bottom,
+            transparent,
+            $border-hover,
+            transparent);
+    flex-shrink: 0;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Left Nav
+// ─────────────────────────────────────────────────────────────────────────────
+
+.interview-nav {
+    width: 220px;
+    flex-shrink: 0;
+    padding: 1.75rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.25rem;
+
+    background:
+        linear-gradient(180deg,
+            rgba($ocean, 0.12),
+            rgba($dark, 0.05));
+
+    &__label {
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: $text-muted;
+        padding: 0 0.75rem;
+        margin-bottom: 0.5rem;
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        width: 100%;
+        padding: 0.65rem 0.75rem;
+
+        background: transparent;
+        border: 1px solid transparent;
+
+        border-radius: 0.5rem;
+        color: $text-muted;
+        font-family: $font-stack;
+        font-size: 0.875rem;
+        cursor: pointer;
+        text-align: left;
+
+        transition:
+            background-color 0.2s ease,
+            color 0.2s ease,
+            border-color 0.2s ease,
+            transform 0.2s ease;
+
+        &:hover {
+            background-color: rgba($blue, 0.12);
+            border-color: $border;
+            color: $text;
+            transform: translateX(2px);
+        }
+
+        &--active {
+            background:
+                linear-gradient(135deg,
+                    rgba($blue, 0.22),
+                    rgba($ocean, 0.18));
+
+            border-color: rgba($ice, 0.2);
+            color: $ice;
+
+            box-shadow:
+                inset 3px 0 0 $blue,
+                0 8px 20px rgba($ocean, 0.12);
+
+            .interview-nav__icon svg {
+                stroke: $ice;
+            }
+        }
+    }
+
+    &__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+        }
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Center Content
+// ─────────────────────────────────────────────────────────────────────────────
+
+.interview-content {
+    flex: 1;
+    padding: 1.75rem 2rem;
+    overflow-y: auto;
+    min-height: initial;
+    max-height: calc(100vh - 3rem);
+    padding-bottom: 5rem;
+    align-items: flex-start;
+
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    section {
+        min-height: 100%;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Content Header
+// ─────────────────────────────────────────────────────────────────────────────
+
+.content-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+
+    border-bottom: 1px solid $border;
+
+    h2 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: $text;
+        margin: 0;
+    }
+
+    &__count {
+        font-size: 0.8rem;
+        color: $text-muted;
+
+        background:
+            linear-gradient(135deg,
+                rgba($blue, 0.16),
+                rgba($ocean, 0.1));
+
+        padding: 0.15rem 0.6rem;
+        border-radius: 2rem;
+        border: 1px solid $border;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Question Cards
+// ─────────────────────────────────────────────────────────────────────────────
+
+.q-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.q-card {
+    background:
+        linear-gradient(135deg,
+            rgba($blue, 0.08),
+            rgba($dark, 0.08)),
+        rgba($ocean, 0.12);
+
+    border: 1px solid $border;
+    border-radius: 0.6rem;
+    overflow: hidden;
+
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+    &:hover {
+        border-color: $border-hover;
+
+        background:
+            linear-gradient(135deg,
+                rgba($blue, 0.12),
+                rgba($ocean, 0.12));
+
+        transform: translateY(-1px);
+
+        box-shadow:
+            0 10px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    &__header {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 0.9rem 1rem;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    &__index {
+        flex-shrink: 0;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: $ice;
+
+        background-color: rgba($blue, 0.18);
+        border: 1px solid rgba($ice, 0.2);
+
+        border-radius: 0.3rem;
+        padding: 0.15rem 0.4rem;
+        margin-top: 2px;
+    }
+
+    &__question {
+        flex: 1;
+        margin: 0;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: $text;
+        line-height: 1.5;
+    }
+
+    &__chevron {
+        flex-shrink: 0;
+        color: $text-muted;
+        transition:
+            transform 0.2s ease,
+            color 0.2s ease;
+        margin-top: 2px;
+
+        &--open {
+            transform: rotate(180deg);
+            color: $ice;
+        }
+    }
+
+    &__body {
+        padding: 0 1rem 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+
+        border-top: 1px solid $border;
+        padding-top: 0.75rem;
+
+        background: rgba($dark, 0.08);
+    }
+
+    &__section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+
+        p {
+            margin: 0;
+            font-size: 0.835rem;
+            color: $text-soft;
+            line-height: 1.6;
+        }
+    }
+
+    &__tag {
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 0.15rem 0.5rem;
+        border-radius: 0.25rem;
+        width: fit-content;
+
+        &--intention {
+            color: $ice;
+            background-color: rgba($ice, 0.08);
+            border: 1px solid rgba($ice, 0.18);
+        }
+
+        &--answer {
+            color: $blue;
+            background-color: rgba($blue, 0.1);
+            border: 1px solid rgba($blue, 0.2);
+        }
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Road Map
+// ─────────────────────────────────────────────────────────────────────────────
+
+.roadmap-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+
+    // vertical timeline line
+    &::before {
+        content: '';
+        position: absolute;
+        left: 28px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+
+        background:
+            linear-gradient(to bottom,
+                $ice,
+                $blue,
+                rgba($ocean, 0.1));
+
+        border-radius: 1px;
+    }
+}
+
+.roadmap-day {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.75rem 0 0.75rem 3.5rem;
+    position: relative;
+
+    // dot on timeline
+    &::before {
+        content: '';
+        position: absolute;
+        left: 21px;
+        top: 1.05rem;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+
+        background-color: $dark;
+        border: 2px solid $blue;
+
+        box-shadow:
+            0 0 0 4px rgba($blue, 0.08),
+            0 0 12px rgba($blue, 0.18);
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+
+    &__badge {
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: $ice;
+
+        background-color: rgba($blue, 0.12);
+        border: 1px solid rgba($ice, 0.2);
+
+        padding: 0.1rem 0.5rem;
+        border-radius: 2rem;
+    }
+
+    &__focus {
+        margin: 0;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: $text;
+    }
+
+    &__tasks {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+
+        li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            font-size: 0.845rem;
+            color: $text-soft;
+            line-height: 1.5;
+        }
+    }
+
+    &__bullet {
+        flex-shrink: 0;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: $blue;
+        margin-top: 8px;
+
+        box-shadow: 0 0 6px rgba($blue, 0.35);
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Right Sidebar
+// ─────────────────────────────────────────────────────────────────────────────
+
+.interview-sidebar {
+    width: 240px;
+    flex-shrink: 0;
+    padding: 1.75rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+
+    background:
+        linear-gradient(180deg,
+            rgba($ocean, 0.1),
+            rgba($dark, 0.04));
+}
+
+.sidebar-divider {
+    height: 1px;
+    background:
+        linear-gradient(to right,
+            transparent,
+            $border-hover,
+            transparent);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Match Score
+// ─────────────────────────────────────────────────────────────────────────────
+
+.match-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+
+    &__label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: $text-muted;
+        margin: 0;
+        align-self: flex-start;
+    }
+
+    &__ring {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+        border: 4px solid;
+
+        background:
+            radial-gradient(circle,
+                rgba($blue, 0.12),
+                rgba($ocean, 0.06));
+
+        box-shadow:
+            0 0 30px rgba($blue, 0.1),
+            inset 0 0 20px rgba($ice, 0.03);
+
+        &.score--high {
+            border-color: $ice;
+        }
+
+        &.score--mid {
+            border-color: $blue;
+        }
+
+        &.score--low {
+            border-color: $ocean;
+        }
+    }
+
+    &__value {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: $text;
+        line-height: 1;
+    }
+
+    &__pct {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: $text-muted;
+        margin-top: -3px;
+    }
+
+    &__sub {
+        margin: 0;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: $ice;
+        text-align: center;
+    }
+
+}
+
+.match-score .match-score__value {
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.match-score .match-score__pct {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Skill Gaps
+// ─────────────────────────────────────────────────────────────────────────────
+
+.skill-gaps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    &__label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: $text-muted;
+        margin: 0;
+    }
+
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+}
+
+.skill-tag {
+    font-size: 0.775rem;
+    font-weight: 500;
+    padding: 0.3rem 0.7rem;
+    border-radius: 0.4rem;
+
+    border: 1px solid;
+    cursor: default;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+
+    &:hover {
+        transform: translateY(-1px);
+    }
+
+    &--high {
+        color: $ice;
+        background-color: rgba($ice, 0.07);
+        border-color: rgba($ice, 0.2);
+    }
+
+    &--medium {
+        color: $blue;
+        background-color: rgba($blue, 0.09);
+        border-color: rgba($blue, 0.22);
+    }
+
+    &--low {
+        color: $ocean;
+        background-color: rgba($ocean, 0.12);
+        border-color: rgba($blue, 0.2);
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Loading Screen
+// ─────────────────────────────────────────────────────────────────────────────
+
+.loading-screen {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(circle at center,
+            rgba($blue, 0.12),
+            transparent 45%),
+        $dark;
+
+    color: $text;
+
+    font-family: $font-stack;
+
+    h1 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: $text-soft;
+
+        padding: 1rem 1.5rem;
+
+        background:
+            linear-gradient(135deg,
+                rgba($blue, 0.12),
+                rgba($ocean, 0.12));
+
+        border: 1px solid $border;
+        border-radius: 0.75rem;
+
+        box-shadow:
+            0 15px 40px rgba(0, 0, 0, 0.2);
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Download Resume Button
+// ─────────────────────────────────────────────────────────────────────────────
+
+.button.primary-button {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0.7rem 0.85rem;
+
+    border: 1px solid rgba($ice, 0.2);
+    border-radius: 0.55rem;
+
+    background:
+        linear-gradient(135deg,
+            $blue,
+            $ocean );
+
+    color: $text;
+
+    font-family: $font-stack;
+    font-size: 0.82rem;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 20px rgba($ocean, 0.22),
+        inset 0 1px 0 rgba($ice, 0.12);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+
+    svg {
+        flex-shrink: 0;
+    }
+
+    &:hover {
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 12px 28px rgba($ocean, 0.3),
+            inset 0 1px 0 rgba($ice, 0.16);
+
+        filter: brightness(1.08);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Responsive
+// ─────────────────────────────────────────────────────────────────────────────
+
+@media (max-width: 1050px) {
+    .interview-nav {
+        width: 190px;
+    }
+
+    .interview-sidebar {
+        width: 210px;
+    }
+
+    .interview-content {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 850px) {
+    .interview-page {
+        padding: 1rem;
+    }
+
+    .interview-sidebar {
+        display: none;
+    }
+
+    .interview-nav {
+        width: 190px;
+    }
+}
+
+@media (max-width: 650px) {
+    .interview-page {
+        padding: 0;
+    }
+
+    .interview-layout {
+        border-radius: 0;
+        min-height: 100vh;
+    }
+
+    .interview-nav {
+        width: 55px;
+        padding: 1.25rem 0.5rem;
+
+        &__label {
+            display: none;
+        }
+
+        &__item {
+            justify-content: center;
+            padding: 0.7rem;
+
+            font-size: 0;
+
+            span {
+                margin: 0;
+            }
+        }
+
+        .button.primary-button {
+            font-size: 0;
+            padding: 0.7rem;
+
+            svg {
+                margin-right: 0 !important;
+            }
+        }
+    }
+
+    .interview-content {
+        padding: 1.25rem 1rem;
+        max-height: none;
+    }
+
+    .content-header {
+        flex-wrap: wrap;
+    }
+
+    .q-card__header {
+        padding: 0.8rem;
+    }
+
+    .roadmap-day {
+        padding-left: 3rem;
+    }
+
+    .roadmap-list::before {
+        left: 22px;
+    }
+
+    .roadmap-day::before {
+        left: 15px;
+    }
+}
